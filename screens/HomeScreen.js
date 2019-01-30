@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Platform,
-  Button
+  Button,
+  Image,
 } from 'react-native';
 
 import { Search } from '../components/Search';
@@ -16,17 +17,60 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  static apiBaseUrl = 'https://overwatchy.com';
+
   state = {
-    query: ''
+    query: '',
+    result: null
   }
 
   handleSearchChange = query => {
     this.setState({ query })
   }
 
-  handleSearch = () => {
+
+  handleSearch = async () => {
     const { query } = this.state;
-    console.log(query);
+    const platform = 'pc';
+    const region = 'us';
+    const tag = query.replace('#', '-');
+    const url = `${HomeScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
+    console.log(`running search ${url}`);
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('got response, getting json')
+      const result = await response.json();
+      console.log(result);
+      this.setState({ result });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  renderResults() {
+    if (!this.state.result) {
+      return;
+    }
+    const { result: {
+      username,
+      level,
+      portrait
+    } } = this.state;
+    return (
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <Image source={{ uri: portrait, width: 125, height: 125 }}></Image>
+        <View>
+          <Text style={styles.whiteText}>Username: {username}</Text>
+          <Text style={styles.whiteText}>Level: {level}</Text>
+        </View>
+      </View>
+    )
   }
 
   render() {
@@ -40,6 +84,7 @@ export default class HomeScreen extends React.Component {
               <Search placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></Search>
               <Button style={styles.searchButton} title="Search" onPress={this.handleSearch}></Button>
             </View>
+            {this.renderResults()}
           </View>
         </ScrollView>
 
@@ -76,6 +121,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 75,
+    fontWeight: 'bold',
     color: '#ff9c00',
     marginBottom: 10,
     fontFamily: Platform.select({
@@ -85,5 +131,8 @@ const styles = StyleSheet.create({
   },
   searchButton: {
     marginTop: 50,
+  },
+  whiteText: {
+    color: '#fff'
   }
 });
