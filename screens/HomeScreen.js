@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import { Search } from '../components/Search';
+import Colors from '../constants/Colors';
 
 
 export default class HomeScreen extends React.Component {
@@ -89,7 +90,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.searchContainer}>
         <Search placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></Search>
-        <Button style={styles.searchButton} color="#7D26CD" title="Search" onPress={this.handleSearch}></Button>
+        <Button style={styles.searchButton} color={Colors.secondary} title="Search" onPress={this.handleSearch}></Button>
       </View>
     )
   }
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     fontSize: 75,
     fontWeight: 'bold',
-    color: '#ff9c00',
+    color: Colors.primary,
     marginBottom: 10,
     fontFamily: Platform.select({
       ios: 'Helvetica Neue',
