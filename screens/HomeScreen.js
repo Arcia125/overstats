@@ -33,7 +33,8 @@ export default class HomeScreen extends React.Component {
     const { query } = this.state;
     const platform = 'pc';
     const region = 'us';
-    const tag = query.replace('#', '-');
+    const [playerName, playerId] = query.split('#');
+    const tag = [playerName, playerId].join('-');
     const url = `${HomeScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
     console.log(`running search ${url}`);
     try {
@@ -45,7 +46,7 @@ export default class HomeScreen extends React.Component {
         }
       });
       console.log('got response, getting json')
-      const result = await response.json();
+      const result = Object.assign({}, await response.json(), { playerId });
       console.log(result);
       this.setState({ result });
     } catch (error) {
@@ -57,17 +58,28 @@ export default class HomeScreen extends React.Component {
     if (!this.state.result) {
       return;
     }
-    const { result: {
-      username,
-      level,
-      portrait
-    } } = this.state;
+    const {
+      result: {
+        username,
+        level,
+        portrait,
+        playerId,
+        competitive: {
+          rank,
+          rank_img: rankImg
+        }
+      }
+    } = this.state;
     return (
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <Image source={{ uri: portrait, width: 125, height: 125 }}></Image>
         <View>
-          <Text style={styles.whiteText}>Username: {username}</Text>
-          <Text style={styles.whiteText}>Level: {level}</Text>
+          <Text style={styles.whiteText}>{username}#{playerId}</Text>
+          <Text style={styles.whiteText}>{level}</Text>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Image source={{ uri: rankImg, width: 25, height: 25 }}></Image>
+            <Text style={styles.whiteText}>{rank}</Text>
+          </View>
         </View>
       </View>
     )
