@@ -77,10 +77,19 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.whiteText}>{username}#{playerId}</Text>
           <Text style={styles.whiteText}>{level}</Text>
           <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Image source={{ uri: rankImg, width: 25, height: 25 }}></Image>
             <Text style={styles.whiteText}>{rank}</Text>
+            <Image source={{ uri: rankImg, width: 25, height: 25 }}></Image>
           </View>
         </View>
+      </View>
+    )
+  }
+
+  renderSearch() {
+    return (
+      <View style={styles.searchContainer}>
+        <Search placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></Search>
+        <Button style={styles.searchButton} color="#7D26CD" title="Search" onPress={this.handleSearch}></Button>
       </View>
     )
   }
@@ -92,14 +101,10 @@ export default class HomeScreen extends React.Component {
           <View style={styles.welcomeContainer}>
             {this.maybeDisplayDevMode()}
             <Text style={styles.title}>Overstats</Text>
-            <View style={styles.searchContainer}>
-              <Search placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></Search>
-              <Button style={styles.searchButton} title="Search" onPress={this.handleSearch}></Button>
-            </View>
+            {this.renderSearch()}
             {this.renderResults()}
           </View>
         </ScrollView>
-
       </View>
     );
   }
@@ -120,18 +125,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#262629'
   },
   contentContainer: {
-    paddingTop: 30
   },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20
   },
-  searchContainer: { flex: 1, flexDirection: 'row' },
+  searchContainer: { flex: 1, flexDirection: 'row', marginBottom: 15 },
   devModeText: {
     color: '#009ae4'
   },
   title: {
+    paddingTop: 50,
     fontSize: 75,
     fontWeight: 'bold',
     color: '#ff9c00',
@@ -142,7 +147,7 @@ const styles = StyleSheet.create({
     }),
   },
   searchButton: {
-    marginTop: 50,
+    marginTop: 50
   },
   whiteText: {
     color: '#fff'

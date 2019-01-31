@@ -17,12 +17,12 @@ export class Search extends Component {
 const styles = StyleSheet.create({
   input: {
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#ff0',
+    borderColor: '#999',
     paddingTop: 6,
     paddingBottom: 6,
     paddingLeft: 14,
     paddingRight: 14,
-    width: Dimensions.get('window').width * .65,
+    width: Dimensions.get('window').width * .55,
     backgroundColor: '#777779',
     color: '#fff',
   }
