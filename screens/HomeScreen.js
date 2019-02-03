@@ -20,7 +20,6 @@ export default class HomeScreen extends React.Component {
 
   state = {
     query: '',
-    result: null
   }
 
   handleSearchChange = query => {
@@ -47,15 +46,13 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-    const { result } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             {this.maybeDisplayDevMode()}
             <Text style={styles.title}>Overstats</Text>
-            {result && <Button title="back"></Button>}
-            {result ? this.renderResults(result) : this.renderSearch()}            
+            {this.renderSearch()}
           </View>
         </ScrollView>
       </View>
