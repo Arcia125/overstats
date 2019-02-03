@@ -87,7 +87,6 @@ export default class ProfileScreen extends React.Component {
             </View>
           </View>
         </View>
-      </ScrollView>
     )
   }
 
