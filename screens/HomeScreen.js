@@ -27,7 +27,6 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            {this.maybeDisplayDevMode()}
             <Text style={styles.title}>Overstats</Text>
             <Search onSearch={this.handleSearch}></Search>
           </View>
@@ -35,15 +34,6 @@ export default class HomeScreen extends React.Component {
       </View>
     );
   }
-
-  maybeDisplayDevMode() {
-    if (__DEV__) {
-      return (
-        <Text style={styles.devModeText}>DEV MODE</Text>
-      )
-    }
-  }
-
 }
 
 const styles = StyleSheet.create({
@@ -57,9 +47,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20
-  },
-  devModeText: {
-    color: '#009ae4'
   },
   title: {
     paddingTop: 50,
