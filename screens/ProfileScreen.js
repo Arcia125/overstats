@@ -91,7 +91,7 @@ export default class ProfileScreen extends React.Component {
   }
 
   render() {
-    const { result, error } = this.state;
+    const { result, error, loading } = this.state;
     return (
       <ScrollView style={styles.container}>
         {error && this.renderError(error)}
