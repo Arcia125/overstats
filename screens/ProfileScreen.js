@@ -16,9 +16,20 @@ export default class ProfileScreen extends React.Component {
     result: null
   }
 
+  getJSON = async (url) => {
+    const response = await fetch (url, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await response.json();
+    return result;
+  }
+
   async componentDidMount() {
     const result = await this.performSearch(this.props.navigation.state.params);
-    console.log(this.props.navigation);
     this.setState({ result })
   }
 
@@ -29,14 +40,8 @@ export default class ProfileScreen extends React.Component {
     const url = `${ProfileScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
     console.log(`running search ${url}`);
     try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      const result = Object.assign({}, await response.json(), { playerId });
+      const json = await this.getJSON(url);
+      const result = { ...json, playerId };
       return result;
     } catch (error) {
       console.error(error);
