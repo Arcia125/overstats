@@ -21,10 +21,12 @@ export default class ProfileScreen extends React.Component {
 
   state = {
     result: null,
-    error: null
+    loading: true,
+    error: null,
   }
 
   getJSON = async (url) => {
+    this.setState({ loading: true });
     const response = await fetch (url, {
       method: 'GET',
       headers: {
@@ -33,6 +35,7 @@ export default class ProfileScreen extends React.Component {
       }
     });
     const result = await response.json();
+    this.setState({ loading: false });
     return result;
   }
 
@@ -63,7 +66,7 @@ export default class ProfileScreen extends React.Component {
     )
   }
 
-  renderResults({
+  renderResult({
     username,
     level,
     portrait,
@@ -74,7 +77,6 @@ export default class ProfileScreen extends React.Component {
     }
   }) {
     return (
-      <ScrollView style={styles.container}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
           <Image style={{ marginRight: 15 }} source={{ uri: portrait, width: 125, height: 125 }}></Image>
           <View>
@@ -92,13 +94,14 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     const { result, error } = this.state;
-    if (error) {
-      return this.renderError(error);
-    }
-    if (result) {
-      return this.renderResults(result);
-    }
-    return <Text>loading...</Text>
+    return (
+      <ScrollView style={styles.container}>
+        {error && this.renderError(error)}
+        {result && this.renderResult(result)}
+        {loading && (<Text>loading...</Text>)}
+      </ScrollView>
+    )
+    return 
   }
 }
 
