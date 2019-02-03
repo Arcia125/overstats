@@ -13,7 +13,8 @@ export default class ProfileScreen extends React.Component {
   static apiBaseUrl = 'https://overwatchy.com';
 
   state = {
-    result: null
+    result: null,
+    error: null
   }
 
   getJSON = async (url) => {
@@ -29,8 +30,12 @@ export default class ProfileScreen extends React.Component {
   }
 
   async componentDidMount() {
-    const result = await this.performSearch(this.props.navigation.state.params);
-    this.setState({ result })
+    try {
+      const result = await this.performSearch(this.props.navigation.state.params);
+      this.setState({ result })
+    } catch (error) {
+      this.setState({ error })
+    }
   }
 
   async performSearch({ playerName, playerId }) {
@@ -39,13 +44,15 @@ export default class ProfileScreen extends React.Component {
     const tag = [playerName, playerId].join('-');
     const url = `${ProfileScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
     console.log(`running search ${url}`);
-    try {
-      const json = await this.getJSON(url);
-      const result = { ...json, playerId };
-      return result;
-    } catch (error) {
-      console.error(error);
-    }
+    const json = await this.getJSON(url);
+    const result = { ...json, playerId };
+    return result;
+  }
+
+  renderError = error => {
+    return (
+      <Text style={styles.whiteText}>{error && error.message}</Text>
+    )
   }
 
   renderResults({
@@ -76,7 +83,10 @@ export default class ProfileScreen extends React.Component {
   }
 
   render() {
-    const { result } = this.state;
+    const { result, error } = this.state;
+    if (error) {
+      return this.renderError(error);
+    }
     if (result) {
       return this.renderResults(result);
     }
