@@ -6,6 +6,9 @@ const purple = '#7D26CD';
 const yellow = '#EAEB5E';
 const yellowText = '#666804';
 const gold = '#ff9c00';
+const darkGray = '#262629';
+const gray1 = '#777779';
+const gray2 = '#999';
 
 const tintColor = purple;
 
@@ -22,7 +25,7 @@ export default {
   noticeText: white,
   primary: gold,
   secondary: tintColor,
-  appBackground: '#262629',
-  inputBackground: '#777779',
-  inputBorder: '#999',
+  appBackground: darkGray,
+  inputBackground: gray1,
+  inputBorder: gray2,
 };
