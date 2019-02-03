@@ -1,18 +1,27 @@
-const tintColor = '#2f95dc';
+const red = 'red';
+const white = '#fff';
+const offWhite = '#fefefe';
+const paper = '#ccc';
+const purple = '#7D26CD';
+const yellow = '#EAEB5E';
+const yellowText = '#666804';
+const gold = '#ff9c00';
+
+const tintColor = purple;
 
 export default {
   tintColor,
-  tabIconDefault: '#ccc',
+  tabIconDefault: paper,
   tabIconSelected: tintColor,
-  tabBar: '#fefefe',
-  errorBackground: 'red',
-  errorText: '#fff',
-  warningBackground: '#EAEB5E',
-  warningText: '#666804',
+  tabBar: offWhite,
+  errorBackground: red,
+  errorText: white,
+  warningBackground: yellow,
+  warningText: yellowText,
   noticeBackground: tintColor,
-  noticeText: '#fff',
-  primary: '#ff9c00',
-  secondary: '#7D26CD',
+  noticeText: white,
+  primary: gold,
+  secondary: tintColor,
   appBackground: '#262629',
   inputBackground: '#777779',
   inputBorder: '#999',
