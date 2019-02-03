@@ -6,7 +6,6 @@ import {
   View,
   Platform,
   Button,
-  Image,
 } from 'react-native';
 
 import { Search } from '../components/Search';
@@ -18,7 +17,6 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
-  static apiBaseUrl = 'https://overwatchy.com';
 
   state = {
     query: '',
@@ -31,60 +29,13 @@ export default class HomeScreen extends React.Component {
 
 
   handleSearch = async () => {
+    const { navigate } = this.props.navigation;
     const { query } = this.state;
-    const platform = 'pc';
-    const region = 'us';
     const [playerName, playerId] = query.split('#');
-    const tag = [playerName, playerId].join('-');
-    const url = `${HomeScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
-    console.log(`running search ${url}`);
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log('got response, getting json')
-      const result = Object.assign({}, await response.json(), { playerId });
-      console.log(result);
-      this.setState({ result });
-    } catch (error) {
-      console.error(error);
-    }
+    navigate('Profile', { playerName, playerId });
   }
 
-  renderResults() {
-    if (!this.state.result) {
-      return;
-    }
-    const {
-      result: {
-        username,
-        level,
-        portrait,
-        playerId,
-        competitive: {
-          rank,
-          rank_img: rankImg
-        }
-      }
-    } = this.state;
-    return (
-      <View style={{ flex: 1, flexDirection: 'row' }}>
-        <Image source={{ uri: portrait, width: 125, height: 125 }}></Image>
-        <View>
-          <Text style={styles.whiteText}>{username}#{playerId}</Text>
-          <Text style={styles.whiteText}>{level}</Text>
-          <View style={{ flex: 1, flexDirection: 'row' }}>
-            <Text style={styles.whiteText}>{rank}</Text>
-            <Image source={{ uri: rankImg, width: 25, height: 25 }}></Image>
-          </View>
-        </View>
-      </View>
-    )
-  }
+
 
   renderSearch() {
     return (
@@ -96,14 +47,15 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+    const { result } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             {this.maybeDisplayDevMode()}
             <Text style={styles.title}>Overstats</Text>
-            {this.renderSearch()}
-            {this.renderResults()}
+            {result && <Button title="back"></Button>}
+            {result ? this.renderResults(result) : this.renderSearch()}            
           </View>
         </ScrollView>
       </View>
