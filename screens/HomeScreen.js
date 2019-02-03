@@ -5,11 +5,10 @@ import {
   Text,
   View,
   Platform,
-  Button,
 } from 'react-native';
 
-import { SearchInput } from '../components/SearchInput';
 import Colors from '../constants/Colors';
+import { Search } from '../components/Search';
 
 
 export default class HomeScreen extends React.Component {
@@ -17,32 +16,10 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
-
-  state = {
-    query: '',
-  }
-
-  handleSearchChange = query => {
-    this.setState({ query })
-  }
-
-
-  handleSearch = async () => {
+  handleSearch = query => {
     const { navigate } = this.props.navigation;
-    const { query } = this.state;
     const [playerName, playerId] = query.split('#');
     navigate('Profile', { playerName, playerId });
-  }
-
-
-
-  renderSearch() {
-    return (
-      <View style={styles.searchContainer}>
-        <SearchInput placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></SearchInput>
-        <Button style={styles.searchButton} color={Colors.secondary} title="Search" onPress={this.handleSearch}></Button>
-      </View>
-    )
   }
 
   render() {
@@ -52,7 +29,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.welcomeContainer}>
             {this.maybeDisplayDevMode()}
             <Text style={styles.title}>Overstats</Text>
-            {this.renderSearch()}
+            <Search onSearch={this.handleSearch}></Search>
           </View>
         </ScrollView>
       </View>
@@ -81,7 +58,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20
   },
-  searchContainer: { flex: 1, flexDirection: 'row', marginBottom: 15 },
   devModeText: {
     color: '#009ae4'
   },
@@ -96,10 +72,4 @@ const styles = StyleSheet.create({
       android: 'Roboto'
     }),
   },
-  searchButton: {
-    marginTop: 50
-  },
-  whiteText: {
-    color: '#fff'
-  }
 });
