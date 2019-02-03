@@ -10,6 +10,13 @@ import {
 import Colors from '../constants/Colors';
 
 export default class ProfileScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    const playerName = navigation.getParam('playerName');
+    return {
+      title: playerName ? `${playerName}'s profile` : 'Profile',
+    }
+  }
+
   static apiBaseUrl = 'https://overwatchy.com';
 
   state = {
@@ -31,6 +38,7 @@ export default class ProfileScreen extends React.Component {
 
   async componentDidMount() {
     try {
+      console.log(this.props.navigation)
       const result = await this.performSearch(this.props.navigation.state.params);
       this.setState({ result })
     } catch (error) {
@@ -68,7 +76,7 @@ export default class ProfileScreen extends React.Component {
     return (
       <ScrollView style={styles.container}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Image source={{ uri: portrait, width: 125, height: 125 }}></Image>
+          <Image style={{ marginRight: 15 }} source={{ uri: portrait, width: 125, height: 125 }}></Image>
           <View>
             <Text style={styles.whiteText}>{username}#{playerId}</Text>
             <Text style={styles.whiteText}>{level}</Text>
