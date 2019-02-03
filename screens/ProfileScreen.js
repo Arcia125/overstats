@@ -54,7 +54,6 @@ export default class ProfileScreen extends React.Component {
     const region = 'us';
     const tag = [playerName, playerId].join('-');
     const url = `${ProfileScreen.apiBaseUrl}/profile/${platform}/${region}/${tag}`;
-    console.log(`running search ${url}`);
     const json = await this.getJSON(url);
     const result = { ...json, playerId };
     return result;
