@@ -8,7 +8,7 @@ import {
   Button,
 } from 'react-native';
 
-import { Search } from '../components/Search';
+import { SearchInput } from '../components/SearchInput';
 import Colors from '../constants/Colors';
 
 
@@ -39,7 +39,7 @@ export default class HomeScreen extends React.Component {
   renderSearch() {
     return (
       <View style={styles.searchContainer}>
-        <Search placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></Search>
+        <SearchInput placeholder="Enter a username" value={this.state.query} onChange={this.handleSearchChange}></SearchInput>
         <Button style={styles.searchButton} color={Colors.secondary} title="Search" onPress={this.handleSearch}></Button>
       </View>
     )

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { TextInput, StyleSheet, Dimensions } from 'react-native';
 
-export class Search extends Component {
+export class SearchInput extends Component {
   render() {
     return (
       <TextInput
