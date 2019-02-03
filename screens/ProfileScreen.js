@@ -7,6 +7,7 @@ import {
   View,
   Image,
 } from 'react-native';
+import Colors from '../constants/Colors';
 
 export default class ProfileScreen extends React.Component {
   static apiBaseUrl = 'https://overwatchy.com';
@@ -35,9 +36,7 @@ export default class ProfileScreen extends React.Component {
           'Content-Type': 'application/json'
         }
       });
-      console.log('got response, getting json')
       const result = Object.assign({}, await response.json(), { playerId });
-      console.log(result);
       return result;
     } catch (error) {
       console.error(error);
@@ -83,9 +82,9 @@ export default class ProfileScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#262629'
+    backgroundColor: Colors.appBackground
   },
   whiteText: {
-    color: '#fff'
+    color: Colors.noticeText
   }
 })

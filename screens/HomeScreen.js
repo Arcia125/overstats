@@ -49,7 +49,7 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#262629'
+    backgroundColor: Colors.appBackground
   },
   contentContainer: {
   },
