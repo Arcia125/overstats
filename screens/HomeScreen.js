@@ -27,7 +27,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <Text style={styles.title}>Overstats</Text>
+            <Text style={styles.title}>Overwatch Stats</Text>
             <Search onSearch={this.handleSearch}></Search>
           </View>
         </ScrollView>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   title: {
     paddingTop: 50,
-    fontSize: 75,
+    fontSize: 40,
     fontWeight: 'bold',
     color: Colors.primary,
     marginBottom: 10,

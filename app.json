@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Overstats",
-    "slug": "overstats",
+    "name": "Overwatch Stats",
+    "slug": "overwatch-stats",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
